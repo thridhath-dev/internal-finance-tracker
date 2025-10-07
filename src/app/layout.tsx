@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ShopEase - Your Premium Shopping Destination",
-  description: "Welcome to ShopEase. Experience seamless shopping with secure checkout and premium products.",
+  title: "FinanceTracker - Manage Your Finances",
+  description: "Track your income, expenses, and manage your finances with ease. Beautiful dashboard with automatic sync.",
 };
 
 export default function RootLayout({

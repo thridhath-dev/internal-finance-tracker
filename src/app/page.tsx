@@ -22,27 +22,27 @@ export default function Home() {
               </span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Your one-stop destination for seamless shopping experiences. 
-              Join thousands of happy customers today.
+              Take control of your financial future with smart tracking and insights. 
+              Join thousands managing their money better today.
             </p>
           </div>
 
           {/* Features */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto py-8">
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="text-3xl mb-3">🚀</div>
-              <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Fast & Easy</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Quick checkout process</p>
+              <div className="text-3xl mb-3">📊</div>
+              <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Smart Dashboard</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Visual insights into your finances</p>
             </div>
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
               <div className="text-3xl mb-3">🔒</div>
-              <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Secure</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Your data is protected</p>
+              <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Secure & Private</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Your financial data is protected</p>
             </div>
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="text-3xl mb-3">💎</div>
-              <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Premium</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Best quality products</p>
+              <div className="text-3xl mb-3">⚡</div>
+              <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Real-time Sync</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Automatic updates across devices</p>
             </div>
           </div>
 

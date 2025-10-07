@@ -1,6 +1,6 @@
-# ShopEase - Next.js with Clerk Authentication & NeonDB
+# FinanceTracker - Next.js with Clerk Authentication & NeonDB
 
-A modern e-commerce platform built with Next.js 15, featuring Clerk authentication and automatic user synchronization to NeonDB via webhooks.
+A modern finance tracking application built with Next.js 15, featuring Clerk authentication, automatic user synchronization to NeonDB via webhooks, and a beautiful dashboard for managing your finances.
 
 ## ✨ Features
 
@@ -8,7 +8,11 @@ A modern e-commerce platform built with Next.js 15, featuring Clerk authenticati
 - 🔐 **Clerk Authentication** - Sign in/up with email, Google, and more
 - 💾 **NeonDB Integration** - PostgreSQL database with Prisma ORM
 - 🔄 **Automatic User Sync** - Webhooks keep your database in sync with Clerk
+- 📊 **Dashboard with Sidebar** - Beautiful dashboard with financial overview
+- 💰 **Transaction Tracking** - View income, expenses, and balance
+- 🏷️ **Category System** - Organize transactions by categories
 - 🌓 **Dark Mode Support** - Beautiful UI in both light and dark themes
+- 📱 **Fully Responsive** - Works perfectly on mobile, tablet, and desktop
 - ⚡ **Next.js 15** - Built with the latest React and Next.js features
 
 ## 🚀 Quick Start
@@ -25,7 +29,10 @@ Create a `.env.local` file with your credentials. See [ENV_VARIABLES.md](./ENV_V
 ```bash
 npx prisma generate
 npx prisma db push
+npm run db:seed
 ```
+
+This creates your database tables and populates 14 categories.
 
 ### 4. Run Development Server
 ```bash
@@ -36,12 +43,11 @@ Open [http://localhost:3000](http://localhost:3000) to see your app!
 
 ## 📚 Documentation
 
-- **[QUICK_START.md](./QUICK_START.md)** - Get started in 3 steps
+- **[TRANSACTION_GUIDE.md](./TRANSACTION_GUIDE.md)** - How to add and manage transactions
+- **[DASHBOARD_GUIDE.md](./DASHBOARD_GUIDE.md)** - Dashboard features and navigation guide
 - **[HOW_IT_WORKS.md](./HOW_IT_WORKS.md)** - Complete explanation of how user storage works
 - **[USER_STORAGE_FLOW.md](./USER_STORAGE_FLOW.md)** - Detailed webhook flow and events
-- **[SETUP_GUIDE.md](./SETUP_GUIDE.md)** - Complete step-by-step setup instructions
 - **[DATABASE_SETUP.md](./DATABASE_SETUP.md)** - Database structure and setup guide
-- **[ENV_VARIABLES.md](./ENV_VARIABLES.md)** - Environment variables reference
 
 ## 📊 Database Tables
 

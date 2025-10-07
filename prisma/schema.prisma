@@ -41,6 +41,7 @@ model Transaction {
   description String?
   type        String   // e.g., "income", "expense"
   date        DateTime @default(now())
+  recurrence  String?  // e.g., "none", "daily", "weekly", "monthly", "yearly"
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
