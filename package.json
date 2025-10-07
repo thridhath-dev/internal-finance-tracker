@@ -12,8 +12,11 @@
   "dependencies": {
     "@clerk/nextjs": "^6.11.1",
     "@prisma/client": "^6.3.1",
+    "date-fns": "^4.1.0",
     "lucide-react": "^0.545.0",
     "next": "15.1.6",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^7.0.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "svix": "^1.45.1"
@@ -21,6 +24,8 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
+    "@types/node-cron": "^3.0.11",
+    "@types/nodemailer": "^7.0.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
