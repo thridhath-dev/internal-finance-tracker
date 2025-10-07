@@ -25,14 +25,13 @@ model User {
 }
 
 model Category {
-  id           Int           @id @default(autoincrement())
-  name         String        @unique
-  description  String?
-  icon         String?       // Optional emoji or icon identifier
-  color        String?       // Optional color code
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  transactions Transaction[]
+  id            Int           @id @default(autoincrement())
+  name          String        @unique
+  type          String        // "income" or "expense"
+  monthlyTarget  Float?        // Monthly budget target
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  transactions  Transaction[]
 }
 
 model Transaction {

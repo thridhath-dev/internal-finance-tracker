@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserButton, useUser } from "@clerk/nextjs";
-import { Home, LayoutDashboard, X, Menu, Receipt } from "lucide-react";
+import { Home, LayoutDashboard, X, Menu, Receipt, Tag } from "lucide-react";
 import { useState } from "react";
 
 const navigation = [
   { name: "Home", href: "/", icon: Home },
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Transactions", href: "/dashboard/transactions", icon: Receipt },
+  { name: "Categories", href: "/dashboard/categories", icon: Tag },
 ];
 
 export default function Sidebar() {
