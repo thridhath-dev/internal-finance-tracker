@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { TrendingUp, TrendingDown, Wallet, PieChart, DollarSign, Calendar } from "lucide-react";
+import { TrendingUp, TrendingDown, Wallet, PieChart, DollarSign, Calendar, Download, FileSpreadsheet } from "lucide-react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -30,6 +30,14 @@ export default function DashboardPage() {
   const [summary, setSummary] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // CSV Export states
+  const [isExporting, setIsExporting] = useState(false);
+  const [exportStatus, setExportStatus] = useState<string>('');
+  const [selectedMonth, setSelectedMonth] = useState(() => {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  });
 
   // Fetch dashboard summary data
   useEffect(() => {
@@ -55,6 +63,40 @@ export default function DashboardPage() {
 
     fetchSummary();
   }, []);
+
+  // CSV Export functions
+  const handleCSVExport = async (useStream = false) => {
+    setIsExporting(true);
+    setExportStatus('Starting CSV export...');
+    
+    try {
+      const endpoint = useStream ? '/api/export-stream.csv' : '/api/export.csv';
+      const response = await fetch(`${endpoint}?month=${selectedMonth}`);
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Export failed');
+      }
+      
+      setExportStatus('Downloading CSV file...');
+      
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `transactions-${selectedMonth}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+      
+      setExportStatus('✅ CSV export completed successfully!');
+    } catch (error) {
+      setExportStatus(`❌ Export failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    } finally {
+      setIsExporting(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -439,6 +481,93 @@ export default function DashboardPage() {
             </button>
           </div>
         )}
+      </div>
+
+      {/* CSV Export Section */}
+      <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 p-6 mt-8">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+              <FileSpreadsheet className="w-6 h-6 text-blue-600" />
+              Export Data
+            </h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              Download your transaction data as CSV files
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Month Selection */}
+          <div>
+            <label htmlFor="export-month" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Select Month to Export
+            </label>
+            <input
+              type="month"
+              id="export-month"
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              disabled={isExporting}
+            />
+          </div>
+
+          {/* Export Button */}
+          <div className="flex justify-center">
+            <button
+              onClick={() => handleCSVExport(true)}
+              disabled={isExporting}
+              className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-blue-300 disabled:to-purple-300 text-white font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl"
+            >
+              <Download className="w-5 h-5" />
+              {isExporting ? 'Exporting...' : 'Download CSV Export'}
+            </button>
+          </div>
+        </div>
+
+        {/* Export Status */}
+        {exportStatus && (
+          <div className={`mt-4 p-4 rounded-lg ${
+            exportStatus.includes('✅') 
+              ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-800' 
+              : exportStatus.includes('❌')
+              ? 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-800'
+              : 'bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-800'
+          }`}>
+            <p className="font-medium flex items-center gap-2">
+              {exportStatus.includes('✅') && <span>✅</span>}
+              {exportStatus.includes('❌') && <span>❌</span>}
+              {!exportStatus.includes('✅') && !exportStatus.includes('❌') && <span>⏳</span>}
+              {exportStatus}
+            </p>
+          </div>
+        )}
+
+        {/* Export Information */}
+        <div className="mt-6">
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-6 rounded-lg border border-blue-200 dark:border-blue-800">
+            <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-3 flex items-center gap-2">
+              📁 Stream Export Features
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-2">
+                <li className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                  Uses fs.createWriteStream for efficient processing
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                  Backend → Buffer → Client flow
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                  Excel-compatible CSV format
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
