@@ -147,14 +147,16 @@ export async function GET(request: NextRequest) {
 
     if (shouldSendEmail && hasUrgentAlerts) {
       try {
-        // Send email notification for urgent alerts
-        const emailResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/nodemailer`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'send-report' })
-        });
+        // Import nodemailer functionality directly
+        const { runFinanceReport } = await import('../nodemailer/route');
         
-        console.log('Email alert sent for urgent alerts:', emailResponse.ok);
+        // Send email notification for urgent alerts
+        const emailResult = await runFinanceReport();
+        
+        console.log('Email alert sent for urgent alerts:', emailResult.success);
+        if (!emailResult.success) {
+          console.error('Email alert failed:', emailResult.message);
+        }
       } catch (error) {
         console.error('Failed to send alert email:', error);
       }

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { Home, LayoutDashboard, X, Menu, Receipt, Tag, Bell } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 
 const navigation = [
   { name: "Home", href: "/", icon: Home },
@@ -55,18 +56,14 @@ export default function Sidebar() {
         <div className="flex flex-col h-full">
           {/* Logo/Brand */}
           <div className="p-6 border-b border-gray-200 dark:border-gray-800">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">F</span>
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-                  FinanceTracker
-                </h1>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  Manage your finances
-                </p>
-              </div>
+            <Link href="/" className="flex items-center justify-center">
+              <Image 
+                src="/wigoh.png" 
+                alt="Wigoh Logo" 
+                width={120} 
+                height={40}
+                className="h-12 w-auto"
+              />
             </Link>
           </div>
 

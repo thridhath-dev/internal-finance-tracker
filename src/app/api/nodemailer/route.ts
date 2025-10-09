@@ -393,7 +393,7 @@ async function sendEmail(html: string): Promise<void> {
   }
 }
 
-async function runFinanceReport(): Promise<{ success: boolean; message: string; data?: any }> {
+export async function runFinanceReport(): Promise<{ success: boolean; message: string; data?: any }> {
   try {
     const snapshot = await buildSnapshot();
 
